@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Thesis02
 //
-//  Created by KimSe young on 2/18/18.
+//  Created by Kim Seyoung on 2/18/18.
 //  Copyright © 2018 SeyoungKim. All rights reserved.
 //
 
@@ -10,6 +10,14 @@ import UIKit
 import SceneKit
 import ARKit
 import Mapbox
+import CoreLocation
+import MapKit
+
+struct LocationData {
+    var coordinates: CLLocationCoordinate2D
+    var titleName: String
+    var subTitleName: String
+}
 
 
 class ViewController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate {
@@ -25,22 +33,37 @@ class ViewController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate {
         mapView.setCenter(CLLocationCoordinate2D(latitude: 40.746328, longitude:  -73.989550), zoomLevel: 11    , animated: false)
         view.addSubview(mapView)
         
-        let annotation = MGLPointAnnotation()
-        let annotation2 = MGLPointAnnotation()
-        let annotation3 = MGLPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 40.729419, longitude: -73.993746)
-        annotation2.coordinate = CLLocationCoordinate2D(latitude: 40.728327, longitude: -73.995205)
-        annotation3.coordinate = CLLocationCoordinate2D(latitude: 40.731270, longitude: -73.996963)
-        annotation.title = "Tisch School of Arts"
-        annotation2.title = "Think Coffee"
-        annotation3.title = "Washington Square Park"
-        annotation.subtitle = "Visit 4th Floor."
-        annotation2.subtitle = "I love their latte."
-        annotation3.subtitle = "Just sit and watch people living their lives."
-        mapView.addAnnotation(annotation)
-        mapView.addAnnotation(annotation2)
-        mapView.addAnnotation(annotation3)
+        let information = [
+            // ITP
+            LocationData(
+                coordinates: CLLocationCoordinate2D(latitude: 40.729419, longitude: -73.993746),
+                titleName: "Tisch School of Arts",
+                subTitleName: "Visit 4th Floor."),
+            
+            // Think 
+            LocationData(
+                coordinates: CLLocationCoordinate2D(latitude: 40.728327, longitude: -73.995205),
+                titleName: "Think Coffee",
+                subTitleName: "I love their latte."),
+            
+            // WSP
+            LocationData(
+                coordinates: CLLocationCoordinate2D(latitude: 40.731270, longitude: -73.996963),
+                titleName: "Washington Square Park",
+                subTitleName: "Just sit and watch people")
+        ]
         
+        for item in information {
+            let annotation = MGLPointAnnotation()
+//            print(item.titleName)
+//            print(item.coordinates)
+            annotation.coordinate = item.coordinates
+            annotation.title = item.titleName
+            annotation.subtitle = item.subTitleName
+            mapView.addAnnotation(annotation)
+        }
+        
+   
         mapView.delegate = self
         
         mapView.showsUserLocation = true

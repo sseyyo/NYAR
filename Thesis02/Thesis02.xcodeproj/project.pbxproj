@@ -15,6 +15,7 @@
 		2F6988A2203A1A4A003951F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F6988A0203A1A4A003951F2 /* LaunchScreen.storyboard */; };
 		2F6988AA203A1A5A003951F2 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6988A9203A1A5A003951F2 /* Mapbox.framework */; };
 		2F6988AB203A1A5A003951F2 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6988A9203A1A5A003951F2 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CDEBFB10432CD81E8811F6CD /* Pods_Thesis02.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAB6C6FAF83946A84A01CA8 /* Pods_Thesis02.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,9 @@
 		2F6988A1203A1A4A003951F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F6988A3203A1A4A003951F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F6988A9203A1A5A003951F2 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		351628C51CA2CE7C4456F297 /* Pods-Thesis02.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thesis02.release.xcconfig"; path = "Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02.release.xcconfig"; sourceTree = "<group>"; };
+		54C3E4AAC16A8C6E46C69B02 /* Pods-Thesis02.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thesis02.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02.debug.xcconfig"; sourceTree = "<group>"; };
+		EFAB6C6FAF83946A84A01CA8 /* Pods_Thesis02.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thesis02.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F6988AA203A1A5A003951F2 /* Mapbox.framework in Frameworks */,
+				CDEBFB10432CD81E8811F6CD /* Pods_Thesis02.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +66,8 @@
 				2F6988A9203A1A5A003951F2 /* Mapbox.framework */,
 				2F698894203A1A4A003951F2 /* Thesis02 */,
 				2F698893203A1A4A003951F2 /* Products */,
+				7CBFBE7817EE8889C233EC92 /* Pods */,
+				921B2A14B1D41AAACD026EE5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +93,23 @@
 			path = Thesis02;
 			sourceTree = "<group>";
 		};
+		7CBFBE7817EE8889C233EC92 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				54C3E4AAC16A8C6E46C69B02 /* Pods-Thesis02.debug.xcconfig */,
+				351628C51CA2CE7C4456F297 /* Pods-Thesis02.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		921B2A14B1D41AAACD026EE5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EFAB6C6FAF83946A84A01CA8 /* Pods_Thesis02.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -93,11 +117,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2F6988A6203A1A4A003951F2 /* Build configuration list for PBXNativeTarget "Thesis02" */;
 			buildPhases = (
+				1C24E45BBCBEF28C783345DC /* [CP] Check Pods Manifest.lock */,
 				2F69888E203A1A4A003951F2 /* Sources */,
 				2F69888F203A1A4A003951F2 /* Frameworks */,
 				2F698890203A1A4A003951F2 /* Resources */,
 				2F6988AC203A1A5A003951F2 /* Embed Frameworks */,
 				2F6988AD203A1A61003951F2 /* ShellScript */,
+				2CAD6E72EEA3C5000417117B /* [CP] Embed Pods Frameworks */,
+				C40DD5A06A740620C48BB8D5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,6 +184,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1C24E45BBCBEF28C783345DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Thesis02-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2CAD6E72EEA3C5000417117B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ARCL/ARCL.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ARCL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2F6988AD203A1A61003951F2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +232,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
+		};
+		C40DD5A06A740620C48BB8D5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -313,6 +391,7 @@
 		};
 		2F6988A7203A1A4A003951F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54C3E4AAC16A8C6E46C69B02 /* Pods-Thesis02.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -332,6 +411,7 @@
 		};
 		2F6988A8203A1A4A003951F2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 351628C51CA2CE7C4456F297 /* Pods-Thesis02.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
