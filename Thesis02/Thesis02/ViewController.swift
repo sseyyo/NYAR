@@ -20,9 +20,7 @@ struct LocationData {
 }
 
 
-class ViewController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate {
-
-    @IBOutlet var sceneView: ARSCNView!
+class ViewController: UIViewController, ARSCNViewDelegate,MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,18 +66,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate {
         
         mapView.showsUserLocation = true
         
-
-        // Set the view's delegate
-        sceneView.delegate = self
+        let ARCameraBtn = UIButton(frame: CGRect(x:135, y:620, width: 100, height: 30))
+        ARCameraBtn.setTitle("camera", for: .normal)
+        ARCameraBtn.setTitleColor(UIColor.white, for: .normal)
+        ARCameraBtn.backgroundColor = UIColor.purple
+        self.view.addSubview(ARCameraBtn)
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        ARCameraBtn.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+    }
+    
+    @objc
+    func handleTap(){
+        print("ar camera")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let ARViewScreen = storyboard.instantiateViewController(withIdentifier: "ARViewController")
+        self.present(ARViewScreen, animated: true, completion: nil)
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -90,53 +91,5 @@ class ViewController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4000, pitch: 0, heading: 0)
         mapView.setCamera(camera, animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-
-        // Run the view's session
-        sceneView.session.run(configuration)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
     }
 }

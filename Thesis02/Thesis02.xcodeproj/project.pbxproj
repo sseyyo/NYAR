@@ -15,7 +15,7 @@
 		2F6988A2203A1A4A003951F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F6988A0203A1A4A003951F2 /* LaunchScreen.storyboard */; };
 		2F6988AA203A1A5A003951F2 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6988A9203A1A5A003951F2 /* Mapbox.framework */; };
 		2F6988AB203A1A5A003951F2 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6988A9203A1A5A003951F2 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CDEBFB10432CD81E8811F6CD /* Pods_Thesis02.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAB6C6FAF83946A84A01CA8 /* Pods_Thesis02.framework */; };
+		2F9965F520448C92008A6818 /* ARScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9965F420448C92008A6818 /* ARScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,9 +42,9 @@
 		2F6988A1203A1A4A003951F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F6988A3203A1A4A003951F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F6988A9203A1A5A003951F2 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		2F9965F420448C92008A6818 /* ARScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARScreenController.swift; sourceTree = "<group>"; };
 		351628C51CA2CE7C4456F297 /* Pods-Thesis02.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thesis02.release.xcconfig"; path = "Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02.release.xcconfig"; sourceTree = "<group>"; };
 		54C3E4AAC16A8C6E46C69B02 /* Pods-Thesis02.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thesis02.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02.debug.xcconfig"; sourceTree = "<group>"; };
-		EFAB6C6FAF83946A84A01CA8 /* Pods_Thesis02.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thesis02.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F6988AA203A1A5A003951F2 /* Mapbox.framework in Frameworks */,
-				CDEBFB10432CD81E8811F6CD /* Pods_Thesis02.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,7 +66,6 @@
 				2F698894203A1A4A003951F2 /* Thesis02 */,
 				2F698893203A1A4A003951F2 /* Products */,
 				7CBFBE7817EE8889C233EC92 /* Pods */,
-				921B2A14B1D41AAACD026EE5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +83,7 @@
 				2F698895203A1A4A003951F2 /* AppDelegate.swift */,
 				2F698897203A1A4A003951F2 /* art.scnassets */,
 				2F698899203A1A4A003951F2 /* ViewController.swift */,
+				2F9965F420448C92008A6818 /* ARScreenController.swift */,
 				2F69889B203A1A4A003951F2 /* Main.storyboard */,
 				2F69889E203A1A4A003951F2 /* Assets.xcassets */,
 				2F6988A0203A1A4A003951F2 /* LaunchScreen.storyboard */,
@@ -100,14 +99,6 @@
 				351628C51CA2CE7C4456F297 /* Pods-Thesis02.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		921B2A14B1D41AAACD026EE5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EFAB6C6FAF83946A84A01CA8 /* Pods_Thesis02.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F9965F520448C92008A6818 /* ARScreenController.swift in Sources */,
 				2F69889A203A1A4A003951F2 /* ViewController.swift in Sources */,
 				2F698896203A1A4A003951F2 /* AppDelegate.swift in Sources */,
 			);
