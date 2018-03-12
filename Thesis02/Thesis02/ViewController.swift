@@ -72,15 +72,30 @@ class ViewController: UIViewController, ARSCNViewDelegate,MGLMapViewDelegate {
         ARCameraBtn.backgroundColor = UIColor.purple
         self.view.addSubview(ARCameraBtn)
         
-        ARCameraBtn.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+        ARCameraBtn.addTarget(self, action: #selector(ARTap), for: .touchUpInside)
+        
+        let InventoryBtn = UIButton(frame: CGRect(x:135, y:520, width: 100, height: 30))
+        InventoryBtn.setTitle("inventory", for: .normal)
+        InventoryBtn.setTitleColor(UIColor.white, for: .normal)
+        InventoryBtn.backgroundColor = UIColor.cyan
+        self.view.addSubview(InventoryBtn)
+        
+        InventoryBtn.addTarget(self, action: #selector(inventoryTap), for: .touchUpInside)
     }
     
     @objc
-    func handleTap(){
+    func ARTap(){
         print("ar camera")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let ARViewScreen = storyboard.instantiateViewController(withIdentifier: "ARViewController")
+        let ARstoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let ARViewScreen = ARstoryboard.instantiateViewController(withIdentifier: "ARViewController")
         self.present(ARViewScreen, animated: true, completion: nil)
+    }
+    
+    @objc func inventoryTap(){
+        print("inventory")
+        let IVstoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let IVViewScreen = IVstoryboard.instantiateViewController(withIdentifier: "InventoryController")
+        self.present(IVViewScreen, animated: true, completion: nil)
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
