@@ -49,6 +49,6 @@
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1Ijoic3NleTEwIiwiYSI6ImNqYWthZmxvNDJnYXoyeHF1c3RqeDliajUifQ._X5IW2ItZuhGdLlijTnrIQ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Shows your location on the map and helps improve OpenStreetMap.</string>
+	<string>Hey! I want to know where you&apos;re @</string>
 </dict>
 </plist>

@@ -65,6 +65,7 @@ class ViewController: UIViewController, ARSCNViewDelegate,MGLMapViewDelegate {
         mapView.delegate = self
         
         mapView.showsUserLocation = true
+        print("you're in \(String(describing: mapView.userLocation?.coordinate))")
         
         let ARCameraBtn = UIButton(frame: CGRect(x:135, y:620, width: 100, height: 30))
         ARCameraBtn.setTitle("camera", for: .normal)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0730532061D63600A35D98 /* memoryPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F0730522061D63600A35D98 /* memoryPin.png */; };
+		2F0730552062B77200A35D98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0730542062B77200A35D98 /* CoreLocation.framework */; };
 		2F59246920573F11001421D8 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F59246820573F11001421D8 /* empty.png */; };
 		2F59246B20573F35001421D8 /* InventoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F59246A20573F35001421D8 /* InventoryController.swift */; };
 		2F698896203A1A4A003951F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F698895203A1A4A003951F2 /* AppDelegate.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F0730522061D63600A35D98 /* memoryPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = memoryPin.png; sourceTree = "<group>"; };
+		2F0730542062B77200A35D98 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2F59246820573F11001421D8 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		2F59246A20573F35001421D8 /* InventoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryController.swift; sourceTree = "<group>"; };
 		2F698892203A1A4A003951F2 /* Thesis02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thesis02.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0730552062B77200A35D98 /* CoreLocation.framework in Frameworks */,
 				2F6988AA203A1A5A003951F2 /* Mapbox.framework in Frameworks */,
 				94D07E1F7491ABDE9AF451C0 /* Pods_Thesis02.framework in Frameworks */,
 			);
@@ -98,6 +103,7 @@
 				2F59246A20573F35001421D8 /* InventoryController.swift */,
 				2F59246820573F11001421D8 /* empty.png */,
 				2F69889E203A1A4A003951F2 /* Assets.xcassets */,
+				2F0730522061D63600A35D98 /* memoryPin.png */,
 				2F6988A0203A1A4A003951F2 /* LaunchScreen.storyboard */,
 				2F6988A3203A1A4A003951F2 /* Info.plist */,
 				2F9965FE20450081008A6818 /* compass.png */,
@@ -108,6 +114,7 @@
 		3CFE5C610D7845F94058029B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F0730542062B77200A35D98 /* CoreLocation.framework */,
 				5F104AFC2FCB1B7C5F8EFD66 /* Pods_Thesis02.framework */,
 			);
 			name = Frameworks;
@@ -187,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F698898203A1A4A003951F2 /* art.scnassets in Resources */,
+				2F0730532061D63600A35D98 /* memoryPin.png in Resources */,
 				2F6988A2203A1A4A003951F2 /* LaunchScreen.storyboard in Resources */,
 				2F69889F203A1A4A003951F2 /* Assets.xcassets in Resources */,
 				2F69889D203A1A4A003951F2 /* Main.storyboard in Resources */,

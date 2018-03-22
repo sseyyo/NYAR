@@ -16,10 +16,11 @@ import MapKit
 import ARCL
 
 
-class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate {
+class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
 
+    let locationManager = CLLocationManager()
     
     var sceneLocationView = SceneLocationView()
     let mapView = MKMapView()
@@ -35,9 +36,25 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegat
     var infoLabel = UILabel()
     var updateInfoLabelTimer: Timer?
     var adjustNorthByTappingSidesOfScreen = false
+   
+    var myLocation:CLLocationCoordinate2D!
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0]
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(location.coordinate.latitude, location.coordinate.longitude)
+        
+        myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let _:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         
         infoLabel.font = UIFont.systemFont(ofSize: 10)
         infoLabel.textAlignment = .left
@@ -47,12 +64,14 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegat
         
         sceneLocationView.showAxesNode = true
         
-        let coordinate = CLLocationCoordinate2D(latitude: 40.753045, longitude: -73.995862)
-        let location = CLLocation(coordinate: coordinate, altitude: 2)
-        let image = UIImage(named: "compass")!
-        let annotationNode = LocationAnnotationNode(location: location, image: image)
-        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
+//        let coordinate = CLLocationCoordinate2D(latitude: 40.729694, longitude: -73.997311)
         
+        let imglocation = CLLocation(coordinate: myLocation, altitude: 2)
+        
+        let image = UIImage(named: "memoryPin")! //나중에 3d오브젝트로 바꿀부분.
+        let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
+
         view.addSubview(sceneLocationView)
         
         if showMapView {
@@ -92,9 +111,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegat
         self.view.addSubview(InventoryBtn)
         InventoryBtn.addTarget(self, action: #selector(inventoryTap), for: .touchUpInside)
     }
-    
-   
-    
+        
     @objc
     func handleTap(){
         print("ar camera")
