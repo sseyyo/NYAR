@@ -28,7 +28,7 @@ class InventoryController: UIViewController{
         
         ARCameraBtn.addTarget(self, action: #selector(ARTap), for: .touchUpInside)
         
-        let MapBtn = UIButton(frame: CGRect(x:135, y:520, width: 100, height: 30))
+        let MapBtn = UIButton(frame: CGRect(x:135, y:580, width: 100, height: 30))
         MapBtn.setTitle("map", for: .normal)
         MapBtn.setTitleColor(UIColor.white, for: .normal)
         MapBtn.backgroundColor = UIColor.cyan

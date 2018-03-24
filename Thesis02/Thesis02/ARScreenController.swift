@@ -16,71 +16,37 @@ import MapKit
 import ARCL
 
 
-class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegate, CLLocationManagerDelegate {
+class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
 
-    let locationManager = CLLocationManager()
-    
+    fileprivate let locationManager = CLLocationManager()
+   
     var sceneLocationView = SceneLocationView()
-    let mapView = MKMapView()
     var userAnnotation: MKPointAnnotation?
     var locationEstimateAnnotation: MKPointAnnotation?
     
     var updateUserLocationTimer: Timer?
     
-    var showMapView: Bool = false
     var ceterMapOnUserLocation: Bool = true
     
     var displayDebugging = false
-    var infoLabel = UILabel()
-    var updateInfoLabelTimer: Timer?
     var adjustNorthByTappingSidesOfScreen = false
    
     var myLocation:CLLocationCoordinate2D!
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0]
-        let span:MKCoordinateSpan = MKCoordinateSpanMake(location.coordinate.latitude, location.coordinate.longitude)
-        
-        myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        let _:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
-        
-    }
+    let imgCoord = CLLocationCoordinate2D(latitude: 40.729843846782558, longitude: -73.99686592901034)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //basic configuration for location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        infoLabel.font = UIFont.systemFont(ofSize: 10)
-        infoLabel.textAlignment = .left
-        infoLabel.textColor = UIColor.white
-        infoLabel.numberOfLines = 0
-        sceneLocationView.addSubview(infoLabel)
+        locationManager.requestWhenInUseAuthorization()
+        //
         
         sceneLocationView.showAxesNode = true
-        
-//        let coordinate = CLLocationCoordinate2D(latitude: 40.729694, longitude: -73.997311)
-        
-        let imglocation = CLLocation(coordinate: myLocation, altitude: 2)
-        
-        let image = UIImage(named: "memoryPin")! //나중에 3d오브젝트로 바꿀부분.
-        let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
-        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
-
-        view.addSubview(sceneLocationView)
-        
-        if showMapView {
-            mapView.delegate = self as? MKMapViewDelegate
-            mapView.showsUserLocation = true
-            mapView.alpha = 0.8
-            view.addSubview(mapView)
-
-        }
         
         sceneLocationView.run()
         view.addSubview(sceneLocationView)
@@ -92,7 +58,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegat
         sceneView.showsStatistics = false
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/ARtestScene.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
@@ -104,14 +70,62 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegat
         self.view.addSubview(mapBtn)
         mapBtn.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         
-        let InventoryBtn = UIButton(frame: CGRect(x:135, y:520, width: 100, height: 30))
+        let InventoryBtn = UIButton(frame: CGRect(x:135, y:580, width: 100, height: 30))
         InventoryBtn.setTitle("inventory", for: .normal)
         InventoryBtn.setTitleColor(UIColor.white, for: .normal)
         InventoryBtn.backgroundColor = UIColor.cyan
         self.view.addSubview(InventoryBtn)
         InventoryBtn.addTarget(self, action: #selector(inventoryTap), for: .touchUpInside)
-    }
+       
+       /* let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchLocation(_:)))
+        sceneView.addGestureRecognizer(tapGesture) */
         
+        let tapGestureBtn = UIButton(frame: CGRect(x:135, y:540, width: 100, height: 30))
+        tapGestureBtn.setTitle("my location", for: .normal)
+        tapGestureBtn.setTitleColor(UIColor.white, for: .normal)
+        tapGestureBtn.backgroundColor = UIColor.cyan
+        self.view.addSubview(tapGestureBtn)
+        tapGestureBtn.addTarget(self, action: #selector(touchLocation), for: .touchUpInside)
+        }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations[0]
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(location.coordinate.latitude, location.coordinate.longitude)
+        
+        myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+//        var alt = location.altitude
+//        print("\(alt)")
+        checkIfthereisAnyMemoryNearBy()
+        /*let imglocation = CLLocation(coordinate: myLocation, altitude: 36)
+        let image = UIImage(named: "memoryPin.png")! //change into 3d objects later
+        let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)*/
+    }
+    
+    func checkIfthereisAnyMemoryNearBy(){
+        let imgCoorLoc =  CLLocation(coordinate: imgCoord, altitude: 36)
+        let myLoc =  CLLocation(coordinate: myLocation, altitude: 36)
+        
+        let distance : CLLocationDistance = imgCoorLoc.distance(from: myLoc)
+        print("distance is \(distance)")
+    }
+
+    @objc
+    func touchLocation(_ gestureRecognize: UIGestureRecognizer) {
+        // retrieve the SCNView
+        
+         print("touched! + \(myLocation)")
+        
+        //library
+        //let imgCoord = CLLocationCoordinate2D(latitude: 40.729843846782558, longitude: -73.99686592901034)
+        let imglocation = CLLocation(coordinate: myLocation, altitude: 36)
+        let image = UIImage(named: "memoryPin.png")! //change into 3d objects later
+        let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
+    }
+    
     @objc
     func handleTap(){
         print("ar camera")
@@ -149,13 +163,6 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, MGLMapViewDelegat
         super.viewDidLayoutSubviews()
         sceneLocationView.frame = CGRect(x:0, y:0, width: self.view.frame.size.width, height: self.view.frame.size.height)
 //        sceneLocationView.frame = view.bounds
-        infoLabel.frame = CGRect(x: 6, y:0, width: self.view.frame.size.width - 12, height: 14 * 4)
-        
-        if showMapView {
-            infoLabel.frame.origin.y = (self.view.frame.size.height/2) - infoLabel.frame.size.height
-        } else {
-            infoLabel.frame.origin.y = self.view.frame.size.height - infoLabel.frame.size.height
-        }
     }
     
     override func didReceiveMemoryWarning() {
