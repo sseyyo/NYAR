@@ -96,16 +96,16 @@
 			isa = PBXGroup;
 			children = (
 				2F698895203A1A4A003951F2 /* AppDelegate.swift */,
-				2F698897203A1A4A003951F2 /* art.scnassets */,
 				2F698899203A1A4A003951F2 /* ViewController.swift */,
 				2F9965F420448C92008A6818 /* ARScreenController.swift */,
-				2F69889B203A1A4A003951F2 /* Main.storyboard */,
 				2F59246A20573F35001421D8 /* InventoryController.swift */,
-				2F59246820573F11001421D8 /* empty.png */,
-				2F69889E203A1A4A003951F2 /* Assets.xcassets */,
-				2F0730522061D63600A35D98 /* memoryPin.png */,
 				2F6988A0203A1A4A003951F2 /* LaunchScreen.storyboard */,
+				2F69889B203A1A4A003951F2 /* Main.storyboard */,
+				2F69889E203A1A4A003951F2 /* Assets.xcassets */,
+				2F698897203A1A4A003951F2 /* art.scnassets */,
 				2F6988A3203A1A4A003951F2 /* Info.plist */,
+				2F0730522061D63600A35D98 /* memoryPin.png */,
+				2F59246820573F11001421D8 /* empty.png */,
 				2F9965FE20450081008A6818 /* compass.png */,
 			);
 			path = Thesis02;

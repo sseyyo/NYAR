@@ -21,7 +21,7 @@
         <!--Screen Controller-->
         <scene sceneID="xlX-yH-itl">
             <objects>
-                <viewController storyboardIdentifier="ARViewController" id="pk9-UZ-wNp" customClass="ARScreenController" customModule="Thesis02" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ARScreenController" id="pk9-UZ-wNp" customClass="ARScreenController" customModule="Thesis02" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0F6-5i-CAk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

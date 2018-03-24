@@ -39,7 +39,7 @@ class InventoryController: UIViewController{
     @objc func ARTap(){
         print("ar camera")
         let ARstoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let ARViewScreen = ARstoryboard.instantiateViewController(withIdentifier: "ARViewController")
+        let ARViewScreen = ARstoryboard.instantiateViewController(withIdentifier: "ARScreenController")
         self.present(ARViewScreen, animated: true, completion: nil)
     }
 
