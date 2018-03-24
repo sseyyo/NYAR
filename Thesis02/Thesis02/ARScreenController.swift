@@ -116,7 +116,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
     func touchLocation(_ gestureRecognize: UIGestureRecognizer) {
         // retrieve the SCNView
         
-         print("touched! + \(myLocation)")
+        print("touched! + \(myLocation)")
         
         //library
         //let imgCoord = CLLocationCoordinate2D(latitude: 40.729843846782558, longitude: -73.99686592901034)
@@ -124,6 +124,17 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         let image = UIImage(named: "memoryPin.png")! //change into 3d objects later
         let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
+        
+        let memo =  UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        memo.placeholder = "Enter text here"
+        memo.font = UIFont.systemFont(ofSize: 15)
+        memo.borderStyle = UITextBorderStyle.roundedRect
+        memo.autocorrectionType = UITextAutocorrectionType.no
+        memo.keyboardType = UIKeyboardType.default
+        memo.returnKeyType = UIReturnKeyType.done
+        memo.clearButtonMode = UITextFieldViewMode.whileEditing;
+        memo.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        self.view.addSubview(memo)
     }
     
     @objc
