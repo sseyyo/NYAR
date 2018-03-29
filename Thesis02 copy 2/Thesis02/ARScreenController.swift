@@ -1,5 +1,5 @@
 //
-//  ARViewController.swift
+//  ARScreenController.swift
 //  Thesis02
 //
 //  Created by Seyoung Kim on 2/26/18.
@@ -15,7 +15,7 @@ import CoreLocation
 import MapKit
 import ARCL
 
-class ARScreenController: UIViewController, ARSCNViewDelegate {
+class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
 
@@ -39,6 +39,9 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
     
     let imgCoord = CLLocationCoordinate2D(latitude: 40.729843846782558, longitude: -73.99686592901034)
     
+    var memo: UITextField!
+    var label: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //basic configuration for location manager
@@ -46,9 +49,8 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.requestWhenInUseAuthorization()
-        //
         
-        sceneLocationView.showAxesNode = true
+        sceneLocationView.showAxesNode = false
         
         sceneLocationView.run()
         view.addSubview(sceneLocationView)
@@ -104,7 +106,15 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
         arViewController.uiOptions.closeButtonEnabled = true
         
         self.present(arViewController, animated: true, completion: nil)
-    
+        
+        let Homecoordinate = CLLocationCoordinate2D(latitude: 40.730751, longitude: -73.996681)
+        let Homelocation = CLLocation(coordinate: Homecoordinate, altitude: 40)
+        let Homeimage = UIImage(named: "empty")!
+        
+        let HomeannotationNode = LocationAnnotationNode(location: Homelocation, image: Homeimage)
+        HomeannotationNode.scaleRelativeToDistance = true
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: HomeannotationNode)
+
     }
     
     func showInfoView(forPlace place: Place) {
@@ -114,8 +124,8 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
     }
     
     func checkIfthereisAnyMemoryNearBy(){
-        let imgCoorLoc =  CLLocation(coordinate: imgCoord, altitude: 38)
-        let myLoc =  CLLocation(coordinate: myLocation, altitude: 38)
+        let imgCoorLoc =  CLLocation(coordinate: imgCoord, altitude: 35)
+        let myLoc =  CLLocation(coordinate: myLocation, altitude: 35)
         
         let distance : CLLocationDistance = imgCoorLoc.distance(from: myLoc)
         print("distance is \(distance)")
@@ -129,12 +139,13 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
         
         //library
         //let imgCoord = CLLocationCoordinate2D(latitude: 40.729843846782558, longitude: -73.99686592901034)
-        let imglocation = CLLocation(coordinate: myLocation, altitude: 38)
+        let imglocation = CLLocation(coordinate: myLocation, altitude: 35)
         let image = UIImage(named: "memoryPin.png")! //change into 3d objects later
         let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         
-        let memo =  UITextField(frame: CGRect(x: 20, y: 100, width: 300, height: 40))
+        memo = UITextField(frame: CGRect(x: 20, y: 100, width: 330, height: 40))
+        memo.delegate = self
         memo.placeholder = "Enter text here"
         memo.font = UIFont.systemFont(ofSize: 15)
         memo.borderStyle = UITextBorderStyle.roundedRect
@@ -144,6 +155,9 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
         memo.clearButtonMode = UITextFieldViewMode.whileEditing;
         memo.contentVerticalAlignment = UIControlContentVerticalAlignment.center
         self.view.addSubview(memo)
+        
+        label = UILabel(frame: CGRect(x: 50, y: 200, width: 200, height: 20))
+        self.view.addSubview(label)
     }
     
     @objc
@@ -191,21 +205,16 @@ class ARScreenController: UIViewController, ARSCNViewDelegate {
     }
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
-        
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
     }
-}
-
-extension ARScreenController: CLLocationManagerDelegate {
+    
     func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
         return true
     }
@@ -213,24 +222,25 @@ extension ARScreenController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[0]
-        let span:MKCoordinateSpan = MKCoordinateSpanMake(location.coordinate.latitude, location.coordinate.longitude)
+        // let span:MKCoordinateSpan = MKCoordinateSpanMake(location.coordinate.latitude, location.coordinate.longitude)
         
-        var myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
-        //        var alt = location.altitude
-        //        print("\(alt)")
-//        checkIfthereisAnyMemoryNearBy()
-        //1
+        myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+//        let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+       
+//        checking altitude
+           /* var alt = location.altitude
+            print("\(alt)")
+            checkIfthereisAnyMemoryNearBy() */
+
         if locations.count > 0 {
             let location = locations.last!
             print("Accuracy: \(location.horizontalAccuracy)")
             
             //2
             if location.horizontalAccuracy < 100 {
-                //3
-                manager.stopUpdatingLocation()
-                let span = MKCoordinateSpan(latitudeDelta: 0.014, longitudeDelta: 0.014)
-                let region = MKCoordinateRegion(center: location.coordinate, span: span)
+                // manager.stopUpdatingLocation()
+                // let span = MKCoordinateSpan(latitudeDelta: 0.014, longitudeDelta: 0.014)
+                // let region = MKCoordinateRegion(center: location.coordinate, span: span)
                 
                 if !startedLoadingPOIs {
                     startedLoadingPOIs = true
@@ -267,21 +277,6 @@ extension ARScreenController: CLLocationManagerDelegate {
     }
 }
 
-/*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    let location = locations[0]
-    let span:MKCoordinateSpan = MKCoordinateSpanMake(location.coordinate.latitude, location.coordinate.longitude)
-    
-    myLocation = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-    let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
-    //        var alt = location.altitude
-    //        print("\(alt)")
-    checkIfthereisAnyMemoryNearBy()
-    /*let imglocation = CLLocation(coordinate: myLocation, altitude: 36)
-     let image = UIImage(named: "memoryPin.png")! //change into 3d objects later
-     let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
-     sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)*/
-}*/
-
 extension ARScreenController: ARDataSource {
     func ar(_ arViewController: ARViewController, viewForAnnotation: ARAnnotation) -> ARAnnotationView {
         let annotationView = AnnotationView()
@@ -306,7 +301,58 @@ extension ARScreenController: AnnotationViewDelegate {
                     self.showInfoView(forPlace: annotation)
                 }
             }
-            
         }
     }
 }
+
+extension ARScreenController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // return NO to disallow editing.
+        print("TextField should begin editing method called")
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // became first responder
+        print("TextField did begin editing method called")
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+        print("TextField should snd editing method called")
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
+        print("TextField did end editing method called")
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        // if implemented, called in place of textFieldDidEndEditing:
+        print("TextField did end editing with reason method called")
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // return NO to not change text
+        print("While entering the characters this method gets called")
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        // called when clear button pressed. return NO to ignore (no notifications)
+        print("TextField should clear method called")
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // called when 'return' key pressed. return NO to ignore.
+        print("TextField should return method called")
+        memo.resignFirstResponder()
+        label.text = memo.text!
+        return true
+    }
+    
+}
+

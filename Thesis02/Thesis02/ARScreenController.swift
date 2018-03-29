@@ -105,8 +105,8 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
     }
     
     func checkIfthereisAnyMemoryNearBy(){
-        let imgCoorLoc =  CLLocation(coordinate: imgCoord, altitude: 36)
-        let myLoc =  CLLocation(coordinate: myLocation, altitude: 36)
+        let imgCoorLoc =  CLLocation(coordinate: imgCoord, altitude: 40)
+        let myLoc =  CLLocation(coordinate: myLocation, altitude: 40)
         
         let distance : CLLocationDistance = imgCoorLoc.distance(from: myLoc)
         print("distance is \(distance)")
@@ -120,7 +120,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         
         //library
         //let imgCoord = CLLocationCoordinate2D(latitude: 40.729843846782558, longitude: -73.99686592901034)
-        let imglocation = CLLocation(coordinate: myLocation, altitude: 36)
+        let imglocation = CLLocation(coordinate: myLocation, altitude: 40)
         let image = UIImage(named: "memoryPin.png")! //change into 3d objects later
         let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)

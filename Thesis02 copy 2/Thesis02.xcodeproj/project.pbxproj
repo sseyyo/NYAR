@@ -20,7 +20,6 @@
 		2F60D1982066EED300115437 /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60D1972066EED300115437 /* ARConfiguration.swift */; };
 		2F60D19A2066EEDD00115437 /* ARTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60D1992066EEDD00115437 /* ARTrackingManager.swift */; };
 		2F60D19C2066EEE500115437 /* Debug in Resources */ = {isa = PBXBuildFile; fileRef = 2F60D19B2066EEE500115437 /* Debug */; };
-		2F60D19E2066EF2700115437 /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60D19D2066EF2700115437 /* ARAnnotationView.swift */; };
 		2F60D1A02066F28500115437 /* DebugMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F60D19F2066F28500115437 /* DebugMapViewController.swift */; };
 		2F698896203A1A4A003951F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F698895203A1A4A003951F2 /* AppDelegate.swift */; };
 		2F69889A203A1A4A003951F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F698899203A1A4A003951F2 /* ViewController.swift */; };
@@ -31,6 +30,7 @@
 		2F6988AB203A1A5A003951F2 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2F6988A9203A1A5A003951F2 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2F9965F520448C92008A6818 /* ARScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9965F420448C92008A6818 /* ARScreenController.swift */; };
 		2F9965FF20450081008A6818 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F9965FE20450081008A6818 /* compass.png */; };
+		2FE34692206B32D70030CA1A /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE34691206B32D70030CA1A /* ARAnnotationView.swift */; };
 		94D07E1F7491ABDE9AF451C0 /* Pods_Thesis02.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F104AFC2FCB1B7C5F8EFD66 /* Pods_Thesis02.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +63,6 @@
 		2F60D1972066EED300115437 /* ARConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
 		2F60D1992066EEDD00115437 /* ARTrackingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARTrackingManager.swift; sourceTree = "<group>"; };
 		2F60D19B2066EEE500115437 /* Debug */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Debug; sourceTree = "<group>"; };
-		2F60D19D2066EF2700115437 /* ARAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARAnnotationView.swift; path = ../../../../../../Downloads/Places/Places/HDAugmentedReality/Classes/ARAnnotationView.swift; sourceTree = "<group>"; };
 		2F60D19F2066F28500115437 /* DebugMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMapViewController.swift; sourceTree = "<group>"; };
 		2F698892203A1A4A003951F2 /* Thesis02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thesis02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F698895203A1A4A003951F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		2F6988A9203A1A5A003951F2 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		2F9965F420448C92008A6818 /* ARScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARScreenController.swift; sourceTree = "<group>"; };
 		2F9965FE20450081008A6818 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
+		2FE34691206B32D70030CA1A /* ARAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARAnnotationView.swift; path = ../../../../../../.Trash/ARAnnotationView.swift; sourceTree = "<group>"; };
 		351628C51CA2CE7C4456F297 /* Pods-Thesis02.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thesis02.release.xcconfig"; path = "Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02.release.xcconfig"; sourceTree = "<group>"; };
 		54C3E4AAC16A8C6E46C69B02 /* Pods-Thesis02.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Thesis02.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Thesis02/Pods-Thesis02.debug.xcconfig"; sourceTree = "<group>"; };
 		5F104AFC2FCB1B7C5F8EFD66 /* Pods_Thesis02.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Thesis02.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +123,7 @@
 				2F60D14F2065E56100115437 /* PlacesLoader.swift */,
 				2F60D1512065E6A400115437 /* Place.swift */,
 				2F9965F420448C92008A6818 /* ARScreenController.swift */,
-				2F60D19D2066EF2700115437 /* ARAnnotationView.swift */,
+				2FE34691206B32D70030CA1A /* ARAnnotationView.swift */,
 				2F60D1992066EEDD00115437 /* ARTrackingManager.swift */,
 				2F60D1952066EECB00115437 /* ARAnnotation.swift */,
 				2F60D1972066EED300115437 /* ARConfiguration.swift */,
@@ -322,13 +322,13 @@
 				2F60D1A02066F28500115437 /* DebugMapViewController.swift in Sources */,
 				2F69889A203A1A4A003951F2 /* ViewController.swift in Sources */,
 				2F59246B20573F35001421D8 /* InventoryController.swift in Sources */,
+				2FE34692206B32D70030CA1A /* ARAnnotationView.swift in Sources */,
 				2F60D19A2066EEDD00115437 /* ARTrackingManager.swift in Sources */,
 				2F60D1962066EECB00115437 /* ARAnnotation.swift in Sources */,
 				2F60D1942066EEB000115437 /* ARViewController.swift in Sources */,
 				2F60D1522065E6A400115437 /* Place.swift in Sources */,
 				2F698896203A1A4A003951F2 /* AppDelegate.swift in Sources */,
 				2F60D1982066EED300115437 /* ARConfiguration.swift in Sources */,
-				2F60D19E2066EF2700115437 /* ARAnnotationView.swift in Sources */,
 				2F60D15B2065EA0B00115437 /* AnnotationView.swift in Sources */,
 				2F60D1502065E56100115437 /* PlacesLoader.swift in Sources */,
 				2F60D1542065E6DE00115437 /* PlaceAnnotation.swift in Sources */,
