@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:/Users/seyoung/Desktop/2018SPRINGITP/Thesis/thesisGithub/Thesis02 copy 8/Thesis02/CLLocationExt.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/seyoung/Desktop/2018SPRINGITP/Thesis/thesisGithub/Thesis02 copy 8/Thesis02/LocationDelegate.swift">
+   </FileRef>
+   <FileRef
+      location = "group:Thesis02.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>
