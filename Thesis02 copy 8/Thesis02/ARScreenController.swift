@@ -495,6 +495,8 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -0.1
         planeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+        
+        //help!!
         planeNode.rotation = SCNVector4Make(1, 1, 0, Float(M_PI/2));
         
         
