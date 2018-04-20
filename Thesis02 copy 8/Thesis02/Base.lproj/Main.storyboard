@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iOf-hf-1qv">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="BodoniFLF-Bold.ttf">
+            <string>BodoniFLF-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -23,7 +27,7 @@
             <objects>
                 <viewController storyboardIdentifier="ARViewController" id="pk9-UZ-wNp" customClass="ARScreenController" customModule="Thesis02" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0F6-5i-CAk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wus-Hn-GYV" customClass="ARScreenCon">
@@ -47,67 +51,67 @@
             <objects>
                 <viewController storyboardIdentifier="InventoryController" id="iOf-hf-1qv" customClass="InventoryController" customModule="Thesis02" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hnp-c2-hs2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-xw-K6L">
-                                <rect key="frame" x="137" y="39" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="f0E-Qk-uBL"/>
-                                    <constraint firstAttribute="width" constant="100" id="mqA-CO-zYv"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="brc-As-DfN">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="nR6-mO-jGa">
-                                <rect key="frame" x="48" y="181" width="100" height="100"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIg-qv-00g">
+                                <rect key="frame" x="-3" y="169" width="380" height="306"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="r5h-Sn-zeG"/>
-                                    <constraint firstAttribute="height" constant="100" id="zuw-sS-2a0"/>
+                                    <constraint firstAttribute="width" constant="380" id="0pK-Ge-qUU"/>
+                                    <constraint firstAttribute="height" constant="306" id="gTY-Tq-N4x"/>
                                 </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="x9g-bV-kia">
-                                <rect key="frame" x="137" y="323" width="100" height="100"/>
+                                <state key="normal" title="Button" image="findMemory.png"/>
+                                <connections>
+                                    <action selector="openMap:" destination="iOf-hf-1qv" eventType="touchUpInside" id="lob-zj-eDr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2y-oZ-5IX">
+                                <rect key="frame" x="-1" y="427" width="376" height="304"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="5VI-I0-Tsv"/>
-                                    <constraint firstAttribute="width" constant="100" id="z2d-wl-Tz6"/>
+                                    <constraint firstAttribute="width" constant="376" id="NrP-Sy-6Tk"/>
+                                    <constraint firstAttribute="height" constant="304" id="eai-Cl-LF1"/>
                                 </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Kn-0E-Qq8">
-                                <rect key="frame" x="137" y="465" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Vva-bC-fTY"/>
-                                    <constraint firstAttribute="height" constant="100" id="XGJ-ys-mYA"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="oTe-Zi-c0m">
-                                <rect key="frame" x="226" y="181" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="4bS-EC-YE4"/>
-                                    <constraint firstAttribute="height" constant="100" id="faY-49-ljv"/>
-                                </constraints>
-                            </imageView>
+                                <state key="normal" title="Button" image="leaveMemory.png"/>
+                                <connections>
+                                    <action selector="openAR:" destination="iOf-hf-1qv" eventType="touchUpInside" id="vPk-mE-Nnn"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to do now?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUm-G9-ZbV">
+                                <rect key="frame" x="20" y="133" width="335" height="28"/>
+                                <fontDescription key="fontDescription" name="BodoniFLF-Bold" family="BodoniFLF" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="c36-D6-s6c" firstAttribute="trailing" secondItem="oTe-Zi-c0m" secondAttribute="trailing" constant="49" id="3fM-cL-8uK"/>
-                            <constraint firstItem="7pa-xw-K6L" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="5IR-eP-5ze"/>
-                            <constraint firstItem="x9g-bV-kia" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="Ey4-vC-fb1"/>
-                            <constraint firstItem="4Kn-0E-Qq8" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="JYx-sG-Vo6"/>
-                            <constraint firstItem="nR6-mO-jGa" firstAttribute="top" secondItem="7pa-xw-K6L" secondAttribute="bottom" constant="42" id="SL4-4p-jc1"/>
-                            <constraint firstItem="4Kn-0E-Qq8" firstAttribute="top" secondItem="x9g-bV-kia" secondAttribute="bottom" constant="42" id="bQD-Cd-Zem"/>
-                            <constraint firstItem="7pa-xw-K6L" firstAttribute="top" secondItem="c36-D6-s6c" secondAttribute="top" constant="19" id="pZv-LO-wuS"/>
-                            <constraint firstItem="x9g-bV-kia" firstAttribute="top" secondItem="nR6-mO-jGa" secondAttribute="bottom" constant="42" id="xYY-Mx-dZD"/>
-                            <constraint firstItem="nR6-mO-jGa" firstAttribute="leading" secondItem="c36-D6-s6c" secondAttribute="leading" constant="48" id="y1c-GB-c4W"/>
-                            <constraint firstItem="oTe-Zi-c0m" firstAttribute="top" secondItem="7pa-xw-K6L" secondAttribute="bottom" constant="42" id="z7p-ln-CeY"/>
+                            <constraint firstItem="NUm-G9-ZbV" firstAttribute="top" secondItem="c36-D6-s6c" secondAttribute="top" constant="89" id="0Z1-jI-fSm"/>
+                            <constraint firstItem="NUm-G9-ZbV" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="4pb-rv-kM1"/>
+                            <constraint firstItem="brc-As-DfN" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="5nc-mZ-82m"/>
+                            <constraint firstItem="brc-As-DfN" firstAttribute="centerY" secondItem="hnp-c2-hs2" secondAttribute="centerY" id="KsP-jV-K5C"/>
+                            <constraint firstItem="c36-D6-s6c" firstAttribute="bottom" secondItem="FIg-qv-00g" secondAttribute="bottom" constant="303" id="b8C-n3-egB"/>
+                            <constraint firstItem="m2y-oZ-5IX" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="bxL-4H-UQt"/>
+                            <constraint firstItem="c36-D6-s6c" firstAttribute="bottom" secondItem="m2y-oZ-5IX" secondAttribute="bottom" constant="47" id="fnb-5r-m71"/>
+                            <constraint firstItem="FIg-qv-00g" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="zDs-X9-7pK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c36-D6-s6c"/>
                     </view>
+                    <connections>
+                        <outlet property="findMemory" destination="FIg-qv-00g" id="f1d-E0-A7R"/>
+                        <outlet property="leaveMemory" destination="m2y-oZ-5IX" id="mZE-Aj-bpK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFu-3M-mNF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1392.8" y="117.39130434782609"/>
+            <point key="canvasLocation" x="-700" y="132.26600985221674"/>
         </scene>
     </scenes>
     <resources>
-        <image name="empty.png" width="1024" height="1024"/>
+        <image name="background.png" width="750" height="1624"/>
+        <image name="findMemory.png" width="750" height="646"/>
+        <image name="leaveMemory.png" width="750" height="650"/>
     </resources>
 </document>

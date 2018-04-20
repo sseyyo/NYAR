@@ -18,13 +18,17 @@ import ARCL
 
 
 class InventoryController: UIViewController{
+    
+    @IBOutlet weak var findMemory: UIButton!
+    @IBOutlet weak var leaveMemory: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let ARCameraBtn = UIButton(frame: CGRect(x:135, y:620, width: 100, height: 30))
         ARCameraBtn.setTitle("camera", for: .normal)
         ARCameraBtn.setTitleColor(UIColor.white, for: .normal)
         ARCameraBtn.backgroundColor = UIColor.purple
-        self.view.addSubview(ARCameraBtn)
+//        self.view.addSubview(ARCameraBtn)
         
         ARCameraBtn.addTarget(self, action: #selector(ARTap), for: .touchUpInside)
         
@@ -32,21 +36,31 @@ class InventoryController: UIViewController{
         MapBtn.setTitle("map", for: .normal)
         MapBtn.setTitleColor(UIColor.white, for: .normal)
         MapBtn.backgroundColor = UIColor.cyan
-        self.view.addSubview(MapBtn)
+//        self.view.addSubview(MapBtn)
         
         MapBtn.addTarget(self, action: #selector(mapTap), for: .touchUpInside)
     }
-    @objc func ARTap(){
-        print("ar camera")
+    
+    @IBAction func openMap(_ sender: Any) {
+        let Mapstoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let MapViewScreen = Mapstoryboard.instantiateViewController(withIdentifier: "MapView")
+        self.present(MapViewScreen, animated: true, completion: nil)
+    }
+    
+    @IBAction func openAR(_ sender: Any) {
         let ARstoryboard = UIStoryboard(name: "Main", bundle: nil)
         let ARViewScreen = ARstoryboard.instantiateViewController(withIdentifier: "ARViewController")
         self.present(ARViewScreen, animated: true, completion: nil)
     }
+    
+    
+    @objc func ARTap(){
+        print("ar camera")
+       
+    }
 
     @objc func mapTap(){
         print("map")
-        let Mapstoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let MapViewScreen = Mapstoryboard.instantiateViewController(withIdentifier: "MapView")
-        self.present(MapViewScreen, animated: true, completion: nil)
+        
     }
 }

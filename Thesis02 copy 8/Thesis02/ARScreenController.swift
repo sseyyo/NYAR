@@ -1,4 +1,4 @@
-//
+
 //  ARScreenController.swift
 //  Thesis02
 //
@@ -60,6 +60,10 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
     
     var cancelBtn: UIButton!
     var doneBtn: UIButton!
+    
+    var fadeBtn: UIButton!
+    
+    var modelsInScene = [SCNNode]()
     
     let locationDelegate = LocationDelegate()
     var latestLocation: CLLocation? = nil
@@ -126,16 +130,16 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         sceneView.showsStatistics = false
         
         mapBtn = UIButton(frame: CGRect(x:270, y:570, width: 75, height: 75))
-        mapBtn.setImage(UIImage(named: "map_gr"), for: UIControlState.normal)
+        mapBtn.setImage(UIImage(named: "map"), for: UIControlState.normal)
         self.view.addSubview(mapBtn)
         mapBtn.addTarget(self, action: #selector(ARTap), for: .touchUpInside)
        
         hereBtn = UIButton(frame: CGRect(x:30, y:575, width: 75, height: 75))
-        hereBtn.setImage(UIImage(named: "here_gr"), for: UIControlState.normal)
+        hereBtn.setImage(UIImage(named: "camera"), for: UIControlState.normal)
         self.view.addSubview(hereBtn)
         hereBtn.addTarget(self, action: #selector(touchLocation), for: .touchUpInside)
         
-        let compassImage = UIImage(named: "compass_active")
+        let compassImage = UIImage(named: "compass")
         compass = UIImageView(image: compassImage!)
         
         compass.frame = CGRect(x: self.view.frame.width / 2 - 58 , y: 530, width: 116, height: 116)
@@ -348,7 +352,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         
         // 1 text unit is 1 scene unit, so scale text down later according to the size here
 //        textGeometry.font = UIFont.systemFont(ofSize: 10, weight: UIFont.Weight.black)
-        textGeometry.font = UIFont(name: "Avenir-HeavyOblique", size: 10)
+        textGeometry.font = UIFont(name: "BodoniFLF-Bold", size: 10)
         
         textGeometry.flatness = 0.0
 
@@ -377,7 +381,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         let (minVec, maxVec) = textNode.boundingBox
         textNode.pivot = SCNMatrix4MakeTranslation((maxVec.x - minVec.x) / 2 + minVec.x, (maxVec.y - minVec.y) / 2 + minVec.y, 0)
         sceneLocationView.scene.rootNode.addChildNode(textNode)
-        
+//        modelsInScene.append(textNode)
         /*let textlocation = CLLocation(coordinate: myCoordinate, altitude: alt)
         let object = LocationNode(location: textlocation)
 
@@ -408,6 +412,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
             
             print(">>>>> Tapping: \(String(describing: hit?.node.name))")
             playAudioo()
+            fadeOut()
             
         }
 
@@ -484,8 +489,10 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         planeNode.simdPosition = pov.simdPosition + pov.simdWorldFront * 0.1
         planeNode.simdRotation = pov.simdRotation
         
-        sceneLocationView.scene.rootNode.addChildNode(planeNode)
-
+        sceneLocationView.scene.rootNode.addChildNode(planeNode);
+        
+        modelsInScene.append(planeNode)
+        
         /*let snaplocation = CLLocation(coordinate: myCoordinate, altitude: alt)
         let object = LocationNode(location: snaplocation)
         
@@ -497,7 +504,13 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         planeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
         //help!!
-        planeNode.rotation = SCNVector4Make(1, 1, 0, Float(M_PI/2));
+//        planeNode.rotation = SCNVector4Make(1, 1, 0, Float(M_PI/2));
+        
+//        fadeBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 + 82, y: 570, width: 64, height: 64))
+//        fadeBtn.setTitle("fade", for: .normal)
+////        fadeBtn.setImage(UIImage(named: "record"), for: UIControlState.normal)
+//        self.view.addSubview(fadeBtn)
+//        fadeBtn.addTarget(self, action: #selector(fadeOut), for: .touchUpInside)
         
         
         print("touched! + \(myCoordinate)")
@@ -507,7 +520,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         
-        memo = UITextField(frame: CGRect(x: 30, y: 100, width: 330, height: 40))
+        memo = UITextField(frame: CGRect(x: 30, y: 250, width: 330, height: 40))
         memo.delegate = self
         memo.placeholder = "Enter text here"
         memo.font = UIFont(name: "BodoniFLF-Bold", size: 30)
@@ -538,13 +551,13 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         playBtn.isHidden = true
         
         
-        cancelBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 - 160, y:40, width: 20, height: 20))
+        cancelBtn = UIButton(frame: CGRect(x: 0, y:40, width: 89, height: 100))
         cancelBtn.setImage(UIImage(named: "cancel"), for: UIControlState.normal)
         self.view.addSubview(cancelBtn)
         cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
 
         
-        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 + 140 , y:40, width: 20, height: 20))
+        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width - 145 , y:40, width: 145, height: 100))
         doneBtn.setImage(UIImage(named: "done"), for: UIControlState.normal)
         self.view.addSubview(doneBtn)
 
@@ -554,6 +567,19 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
 //    func soundRecord(){
 //        print("sound record code here")
 //    }
+    
+    @objc
+    func fadeOut() {
+        if let lastModel = modelsInScene.popLast() {
+            let fadeOut = SCNAction.fadeOut(duration: 1)
+//            lastModel.removeFromParentNode()
+            lastModel.runAction(fadeOut)
+//            print(modelsInScene[0])
+//           modelsInScene[0].runAction(fadeOut)
+//            modelsInScene[1].runAction(fadeOut)
+        }
+    }
+
     
     @objc
     func ARTap(){
@@ -568,10 +594,10 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
 //        DDLogDebug("run")
         sceneLocationView.run()
 //        // Create a session configuration
-//        let configuration = ARWorldTrackingConfiguration()
+        let configuration = ARWorldTrackingConfiguration()
 //
 //        // Run the view's session
-//        sceneView.session.run(configuration)
+        sceneLocationView.session.run(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
