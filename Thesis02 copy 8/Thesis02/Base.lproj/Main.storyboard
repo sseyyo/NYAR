@@ -8,11 +8,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="BodoniFLF-Bold.ttf">
-            <string>BodoniFLF-Bold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -20,7 +15,7 @@
                 <viewController storyboardIdentifier="MapView" id="BV1-FR-VrT" customClass="ViewController" customModule="Thesis02" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="103" y="118"/>
+            <point key="canvasLocation" x="54" y="132"/>
         </scene>
         <!--Screen Controller-->
         <scene sceneID="xlX-yH-itl">
@@ -44,7 +39,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nad-8T-xyb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="752.79999999999995" y="117.39130434782609"/>
+            <point key="canvasLocation" x="746" y="132"/>
+        </scene>
+        <!--Map Controller-->
+        <scene sceneID="wYP-YZ-ZRq">
+            <objects>
+                <viewController storyboardIdentifier="mapController" id="XCJ-wJ-qxB" customClass="mapController" customModule="Thesis02" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gMn-uh-4wF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gGv-oR-C9n">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </arscnView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Pej-YX-WBX"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="gGv-oR-C9n" id="2K3-B1-MAd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P2j-ek-xem" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1661.5999999999999" y="131.52709359605913"/>
         </scene>
         <!--Inventory Controller-->
         <scene sceneID="iBt-yl-ElY">
@@ -54,48 +73,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="brc-As-DfN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="background2.png" translatesAutoresizingMaskIntoConstraints="NO" id="brc-As-DfN">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FIg-qv-00g">
-                                <rect key="frame" x="-3" y="169" width="380" height="306"/>
+                                <rect key="frame" x="-2.6666666666666572" y="125" width="380.33333333333326" height="306"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="380" id="0pK-Ge-qUU"/>
-                                    <constraint firstAttribute="height" constant="306" id="gTY-Tq-N4x"/>
+                                    <constraint firstAttribute="width" constant="380" id="2Q9-xf-241"/>
+                                    <constraint firstAttribute="height" constant="306" id="Jls-K3-b6K"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="findMemory.png"/>
+                                <state key="normal" title="Button" image="findMemoryBtn.png"/>
                                 <connections>
                                     <action selector="openMap:" destination="iOf-hf-1qv" eventType="touchUpInside" id="lob-zj-eDr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2y-oZ-5IX">
-                                <rect key="frame" x="-1" y="427" width="376" height="304"/>
+                                <rect key="frame" x="-0.66666666666665719" y="383" width="376.33333333333326" height="304"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="376" id="NrP-Sy-6Tk"/>
                                     <constraint firstAttribute="height" constant="304" id="eai-Cl-LF1"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="leaveMemory.png"/>
+                                <state key="normal" title="Button" image="leaveMemoryBtn.png"/>
                                 <connections>
                                     <action selector="openAR:" destination="iOf-hf-1qv" eventType="touchUpInside" id="vPk-mE-Nnn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to do now?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUm-G9-ZbV">
-                                <rect key="frame" x="20" y="133" width="335" height="28"/>
-                                <fontDescription key="fontDescription" name="BodoniFLF-Bold" family="BodoniFLF" pointSize="26"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NUm-G9-ZbV" firstAttribute="top" secondItem="c36-D6-s6c" secondAttribute="top" constant="89" id="0Z1-jI-fSm"/>
-                            <constraint firstItem="NUm-G9-ZbV" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="4pb-rv-kM1"/>
                             <constraint firstItem="brc-As-DfN" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="5nc-mZ-82m"/>
+                            <constraint firstItem="c36-D6-s6c" firstAttribute="bottom" secondItem="FIg-qv-00g" secondAttribute="bottom" constant="347" id="GK9-b9-ZXF"/>
                             <constraint firstItem="brc-As-DfN" firstAttribute="centerY" secondItem="hnp-c2-hs2" secondAttribute="centerY" id="KsP-jV-K5C"/>
-                            <constraint firstItem="c36-D6-s6c" firstAttribute="bottom" secondItem="FIg-qv-00g" secondAttribute="bottom" constant="303" id="b8C-n3-egB"/>
-                            <constraint firstItem="m2y-oZ-5IX" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="bxL-4H-UQt"/>
-                            <constraint firstItem="c36-D6-s6c" firstAttribute="bottom" secondItem="m2y-oZ-5IX" secondAttribute="bottom" constant="47" id="fnb-5r-m71"/>
-                            <constraint firstItem="FIg-qv-00g" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="zDs-X9-7pK"/>
+                            <constraint firstItem="c36-D6-s6c" firstAttribute="bottom" secondItem="m2y-oZ-5IX" secondAttribute="bottom" constant="91" id="a1t-zj-KX3"/>
+                            <constraint firstItem="FIg-qv-00g" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="qsz-Ie-vi8"/>
+                            <constraint firstItem="m2y-oZ-5IX" firstAttribute="centerX" secondItem="hnp-c2-hs2" secondAttribute="centerX" id="sd5-5c-tfe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c36-D6-s6c"/>
                     </view>
@@ -110,8 +121,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background.png" width="750" height="1624"/>
-        <image name="findMemory.png" width="750" height="646"/>
-        <image name="leaveMemory.png" width="750" height="650"/>
+        <image name="background2.png" width="750" height="1624"/>
+        <image name="findMemoryBtn.png" width="750" height="646"/>
+        <image name="leaveMemoryBtn.png" width="750" height="650"/>
     </resources>
 </document>

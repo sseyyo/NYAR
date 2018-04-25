@@ -280,12 +280,14 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
     public func addLocationNodeWithConfirmedLocation(locationNode: LocationNode) {
         if locationNode.location == nil || locationNode.locationConfirmed == false {
             return
+                print("locationNode is \(locationNode)")
         }
         
         updatePositionAndScaleOfLocationNode(locationNode: locationNode, initialSetup: true, animated: false)
         
         locationNodes.append(locationNode)
         sceneNode?.addChildNode(locationNode)
+        print("add nodde\(locationNode)")
     }
     
     public func removeLocationNode(locationNode: LocationNode) {

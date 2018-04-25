@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>memoryNYC</string>
+	<string>memoria</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -31,7 +31,15 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This application will use the camera for Augmented Reality.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Hey! I want to know where you&apos;re @</string>
+	<string>Hey! I want to know where you're @</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>sound record</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>BODONI-B.TTF</string>
+		<string>BodoniFLF-Bold.ttf</string>
+		<string>Bodoni Bold Cyrillic.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -55,14 +63,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>sound record</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>BODONI-B.TTF</string>
-		<string>BodoniFLF-Bold.ttf</string>
-		<string>Bodoni Bold Cyrillic.ttf</string>
 	</array>
 </dict>
 </plist>

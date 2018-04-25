@@ -55,8 +55,8 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
     var playBtn: UIButton!
     
     var compass: UIImageView!
-    var hereBtn: UIButton!
-    var mapBtn: UIButton!
+    var cameraBtn: UIButton!
+    var textBtn: UIButton!
     
     var cancelBtn: UIButton!
     var doneBtn: UIButton!
@@ -65,6 +65,12 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
     
     var modelsInScene = [SCNNode]()
     
+    var soundBool = false
+    var textBool = false
+    
+    var soundBtn: UIButton!
+    var slider: UIButton!
+    var pop: UIButton!
     let locationDelegate = LocationDelegate()
     var latestLocation: CLLocation? = nil
     var yourLocationBearing: CGFloat { return latestLocation?.bearingToLocationRadian(self.yourLocation) ?? 0}
@@ -127,43 +133,83 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         
         // Set the view's delegate
         sceneLocationView.delegate = self
-        sceneView.showsStatistics = false
+        sceneLocationView.showsStatistics = false
         
-        mapBtn = UIButton(frame: CGRect(x:270, y:570, width: 75, height: 75))
-        mapBtn.setImage(UIImage(named: "map"), for: UIControlState.normal)
-        self.view.addSubview(mapBtn)
-        mapBtn.addTarget(self, action: #selector(ARTap), for: .touchUpInside)
+        textBtn = UIButton(frame: CGRect(x:self.view.frame.width / 2 - 157, y: 650, width: 75, height: 75))
+        textBtn.setImage(UIImage(named: "memo"), for: UIControlState.normal)
+        self.view.addSubview(textBtn)
+        textBtn.addTarget(self, action: #selector(createText), for: .touchUpInside)
+        
+        soundBtn = UIButton(frame: CGRect(x:self.view.frame.width / 2 + 80, y: 650, width: 75, height: 75))
+        soundBtn.setImage(UIImage(named: "mic"), for: UIControlState.normal)
+        self.view.addSubview(soundBtn)
+        soundBtn.addTarget(self, action: #selector(soundTap), for: .touchUpInside)
        
-        hereBtn = UIButton(frame: CGRect(x:30, y:575, width: 75, height: 75))
-        hereBtn.setImage(UIImage(named: "camera"), for: UIControlState.normal)
-        self.view.addSubview(hereBtn)
-        hereBtn.addTarget(self, action: #selector(touchLocation), for: .touchUpInside)
+        cameraBtn = UIButton(frame: CGRect(x:self.view.frame.width / 2 - 37, y: 650, width: 75, height: 75))
+        cameraBtn.setImage(UIImage(named: "camera"), for: UIControlState.normal)
+        self.view.addSubview(cameraBtn)
+        cameraBtn.addTarget(self, action: #selector(touchLocation), for: .touchUpInside)
         
-        let compassImage = UIImage(named: "compass")
-        compass = UIImageView(image: compassImage!)
         
-        compass.frame = CGRect(x: self.view.frame.width / 2 - 58 , y: 530, width: 116, height: 116)
-        view.addSubview(compass)
+        cancelBtn = UIButton(frame: CGRect(x: 0, y:40, width: 90, height: 90))
+        cancelBtn.setImage(UIImage(named: "cancel"), for: UIControlState.normal)
+        self.view.addSubview(cancelBtn)
+        cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelBtn.isHidden = true
         
-        locationDelegate.headingCallback = { newHeading in
-            func computeNewAngle(with newAngle: CGFloat) -> CGFloat {
-                let heading: CGFloat = {
-                    let originalHeading = self.yourLocationBearing - newAngle.degreesToRadians
-                    switch UIDevice.current.orientation {
-                    case .faceDown: return -originalHeading
-                    default: return originalHeading
-                    }
-                }()
-                return CGFloat(self.orientationAdjustment().degreesToRadians + heading)
-            }
-            
-            UIView.animate(withDuration: 0.5){
-                let angle = computeNewAngle(with: CGFloat(newHeading))
-                self.dirAng = abs(Int(angle))
-                print("angle is \(String(describing: self.dirAng))")
-                self.compass.transform = CGAffineTransform(rotationAngle: angle)
-            }
-        }
+        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width - 145 , y:40, width: 139, height: 90))
+        doneBtn.setImage(UIImage(named: "done"), for: UIControlState.normal)
+        self.view.addSubview(doneBtn)
+        doneBtn.addTarget(self, action: #selector(showSlider), for: .touchUpInside)
+        doneBtn.isHidden = true
+        
+        recordBtnTwo = UIButton(frame: CGRect(x: self.view.frame.width / 2 - 146, y: 650, width: 64, height: 64))
+        recordBtnTwo.setTitle("recordBtnTwo", for: .normal)
+        recordBtnTwo.setImage(UIImage(named: "record"), for: UIControlState.normal)
+        self.view.addSubview(recordBtnTwo)
+        recordBtnTwo.addTarget(self, action: #selector(recordAudio), for: .touchUpInside)
+        recordBtnTwo.isHidden = true
+        
+        stopBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 - 32, y:650, width: 64, height: 64))
+        stopBtn.setTitle("stop", for: .normal)
+        stopBtn.setImage(UIImage(named: "stop"), for: UIControlState.normal)
+        self.view.addSubview(stopBtn)
+        stopBtn.addTarget(self, action: #selector(stopAudio), for: .touchUpInside)
+        stopBtn.isHidden = true
+        
+        playBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 + 82, y: 650 , width: 64, height: 64))
+        playBtn.setTitle("play", for: .normal)
+        playBtn.setImage(UIImage(named: "play"), for: UIControlState.normal)
+        stopBtn.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
+        self.view.addSubview(playBtn)
+        playBtn.isHidden = true
+
+        
+//        let compassImage = UIImage(named: "compass")
+//        compass = UIImageView(image: compassImage!)
+//
+//        compass.frame = CGRect(x: self.view.frame.width / 2 - 58 , y: 530, width: 116, height: 116)
+//        view.addSubview(compass)
+//
+//        locationDelegate.headingCallback = { newHeading in
+//            func computeNewAngle(with newAngle: CGFloat) -> CGFloat {
+//                let heading: CGFloat = {
+//                    let originalHeading = self.yourLocationBearing - newAngle.degreesToRadians
+//                    switch UIDevice.current.orientation {
+//                    case .faceDown: return -originalHeading
+//                    default: return originalHeading
+//                    }
+//                }()
+//                return CGFloat(self.orientationAdjustment().degreesToRadians + heading)
+//            }
+//
+//            UIView.animate(withDuration: 0.5){
+//                let angle = computeNewAngle(with: CGFloat(newHeading))
+//                self.dirAng = abs(Int(angle))
+//                print("angle is \(String(describing: self.dirAng))")
+//                self.compass.transform = CGAffineTransform(rotationAngle: angle)
+//            }
+//        }
         
 //       ********* AR NOTES START HERE
         //library
@@ -183,15 +229,6 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         firstAnnotationNode.scaleRelativeToDistance = true
         firstAnnotationNode.annotationNode.name = "wsp"
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: firstAnnotationNode)
-        
-        //itp
-        let thirdCoordinate = CLLocationCoordinate2D(latitude: 40.729415, longitude: -73.993699)
-        let thirdLocation = CLLocation(coordinate: thirdCoordinate, altitude: alt)
-        let thirdImage = UIImage(named: "righthere")!
-        let thirdAnnotationNode = LocationAnnotationNode(location: thirdLocation, image: thirdImage)
-        thirdAnnotationNode.scaleRelativeToDistance = true
-        thirdAnnotationNode.annotationNode.name = "righthere"
-        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: thirdAnnotationNode)
         
         let secondTextGeometry = SCNText(string: "I found this place on the way home from school It was really nice", extrusionDepth: 0.0)
        
@@ -272,6 +309,29 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         self.view.addSubview(playBtn)
         playBtn.addTarget(self, action: #selector(playAudio), for: .touchUpInside) */
     }
+    
+    @objc
+    func soundTap (){
+        
+        soundBool = true
+        cameraBtn.isHidden = true
+        textBtn.isHidden = true
+        soundBtn.isHidden = true
+        
+        recordBtnTwo.isHidden = false
+        stopBtn.isHidden = true
+        playBtn.isHidden = true
+        
+        
+//        cancelBtn = UIButton(frame: CGRect(x: 0, y:40, width: 90, height: 90))
+//        cancelBtn.setImage(UIImage(named: "cancel"), for: UIControlState.normal)
+//        self.view.addSubview(cancelBtn)
+//        cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        cancelBtn.isHidden = false
+        
+    }
+    
+    
     @objc
     func recordAudio(_ sender: AnyObject) {
         if audioRecorder?.isRecording == false {
@@ -280,10 +340,10 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
             print("record start")
             
             stopBtn.isHidden = false
-            stopBtn.addTarget(self, action: #selector(stopAudio), for: .touchUpInside)
             recordBtnTwo.isEnabled = false
 
         }
+        soundBool = true
     }
     
     @objc
@@ -303,6 +363,55 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         playBtn.addTarget(self, action: #selector(playAudio), for: .touchUpInside)
         stopBtn.isEnabled = false
         recordBtnTwo.isEnabled = true
+        
+        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width - 145 , y:40, width: 139, height: 90))
+        doneBtn.setImage(UIImage(named: "done"), for: UIControlState.normal)
+        self.view.addSubview(doneBtn)
+        doneBtn.addTarget(self, action: #selector(showSlider), for: .touchUpInside)
+        
+    }
+    
+    @objc
+    func showSlider(){
+        
+        if textBool {
+            memo.isHidden = true
+            textBool = false
+        }
+        
+        if soundBool {
+            stopBtn.isHidden = true
+            playBtn.isHidden = true
+            recordBtnTwo.isHidden = true
+            soundBool = false
+        }
+        slider = UIButton(frame: CGRect(x: self.view.frame.width/2 - 171 , y: 640, width: 343, height: 56))
+        slider.setImage(UIImage(named: "sliderWdays"), for: UIControlState.normal)
+        self.view.addSubview(slider)
+        slider.addTarget(self, action: #selector(showPop), for: .touchUpInside)
+
+        cameraBtn.isHidden = true
+        textBtn.isHidden = true
+        soundBtn.isHidden = true
+
+        cancelBtn.isHidden = true
+        doneBtn.isHidden = true
+    }
+    
+    @objc
+    func showPop(){
+        pop = UIButton(frame: CGRect(x: self.view.frame.width/2 - 169 , y:240, width: 338, height: 220))
+        pop.setImage(UIImage(named: "popUp"), for: UIControlState.normal)
+        self.view.addSubview(pop)
+        pop.addTarget(self, action: #selector(fadeOutCall), for: .touchUpInside)
+    }
+    
+    @objc
+    func fadeOutCall(){
+        fadeOut()
+        pop.isHidden = true
+        slider.isHidden = true
+        
     }
     
     @objc
@@ -310,7 +419,7 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         if audioRecorder?.isRecording == false {
             stopBtn.isEnabled = true
             recordBtnTwo.isEnabled = true
- print("play")
+            print("play")
             do {
                 try audioPlayer = AVAudioPlayer(contentsOf:
                     (audioRecorder?.url)!)
@@ -358,10 +467,9 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
 
         // Double sided material
         textGeometry.firstMaterial?.isDoubleSided = true
-        
+        textGeometry.firstMaterial?.diffuse.contents = UIColor(hexColor: "cdcdff")
         // Get point of view
-        guard let pov = sceneView.pointOfView else {
-            print("Unable to get pov")
+        guard let pov = sceneLocationView.pointOfView else {
             return
         }
         
@@ -381,12 +489,19 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         let (minVec, maxVec) = textNode.boundingBox
         textNode.pivot = SCNMatrix4MakeTranslation((maxVec.x - minVec.x) / 2 + minVec.x, (maxVec.y - minVec.y) / 2 + minVec.y, 0)
         sceneLocationView.scene.rootNode.addChildNode(textNode)
-//        modelsInScene.append(textNode)
-        /*let textlocation = CLLocation(coordinate: myCoordinate, altitude: alt)
-        let object = LocationNode(location: textlocation)
-
-        object.addChildNode(textNode)
-        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: object)*/
+        
+        modelsInScene.append(textNode)
+        
+        cancelBtn = UIButton(frame: CGRect(x: 0, y:40, width: 90, height: 90))
+        cancelBtn.setImage(UIImage(named: "cancel"), for: UIControlState.normal)
+        self.view.addSubview(cancelBtn)
+        cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        
+        
+        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width - 145 , y:40, width: 139, height: 90))
+        doneBtn.setImage(UIImage(named: "done"), for: UIControlState.normal)
+        self.view.addSubview(doneBtn)
+        doneBtn.addTarget(self, action: #selector(showSlider), for: .touchUpInside)
     }
     
 //    func checkIfthereisAnyMemoryNearBy(){
@@ -453,11 +568,12 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
             return
         }
         
-        compass.isHidden = true
-        mapBtn.isHidden = true
-        hereBtn.isHidden = true
+//        compass.isHidden = true
+//        textBtn.isHidden = true
+//        cameraBtn.isHidden = true
+//        soundBtn.isHidden = true
         
-        guard let pov = sceneView.pointOfView else {
+        guard let pov = sceneLocationView.pointOfView else {
             return
         }
         
@@ -499,9 +615,9 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         object.addChildNode(planeNode)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: object)*/
         
-        var translation = matrix_identity_float4x4
-        translation.columns.3.z = -0.1
-        planeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+//        var translation = matrix_identity_float4x4
+//        translation.columns.3.z = -0.1
+//        planeNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
         //help!!
 //        planeNode.rotation = SCNVector4Make(1, 1, 0, Float(M_PI/2));
@@ -520,64 +636,60 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
         let annotationNode = LocationAnnotationNode(location: imglocation, image: image)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         
-        memo = UITextField(frame: CGRect(x: 30, y: 250, width: 330, height: 40))
-        memo.delegate = self
-        memo.placeholder = "Enter text here"
-        memo.font = UIFont(name: "BodoniFLF-Bold", size: 30)
-        
-//        memo.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.black)
-        memo.autocorrectionType = UITextAutocorrectionType.no
-        memo.keyboardType = UIKeyboardType.default
-        memo.returnKeyType = UIReturnKeyType.done
-        memo.clearButtonMode = UITextFieldViewMode.whileEditing;
-        self.view.addSubview(memo)
-        
-        recordBtnTwo = UIButton(frame: CGRect(x: self.view.frame.width / 2 + 82, y: 570, width: 64, height: 64))
-        recordBtnTwo.setTitle("recordBtnTwo", for: .normal)
-        recordBtnTwo.setImage(UIImage(named: "record"), for: UIControlState.normal)
-        self.view.addSubview(recordBtnTwo)
-        recordBtnTwo.addTarget(self, action: #selector(recordAudio), for: .touchUpInside)
-        
-        stopBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 - 32, y:570, width: 64, height: 64))
-        stopBtn.setTitle("stop", for: .normal)
-        stopBtn.setImage(UIImage(named: "stop"), for: UIControlState.normal)
-        self.view.addSubview(stopBtn)
-        stopBtn.isHidden = true
-        
-        playBtn = UIButton(frame: CGRect(x: self.view.frame.width / 2 - 146, y: 570 , width: 64, height: 64))
-        playBtn.setTitle("play", for: .normal)
-        playBtn.setImage(UIImage(named: "play"), for: UIControlState.normal)
-        self.view.addSubview(playBtn)
-        playBtn.isHidden = true
-        
-        
-        cancelBtn = UIButton(frame: CGRect(x: 0, y:40, width: 89, height: 100))
+        cancelBtn = UIButton(frame: CGRect(x: 0, y:40, width: 90, height: 90))
         cancelBtn.setImage(UIImage(named: "cancel"), for: UIControlState.normal)
         self.view.addSubview(cancelBtn)
         cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
 
         
-        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width - 145 , y:40, width: 145, height: 100))
+        doneBtn = UIButton(frame: CGRect(x: self.view.frame.width - 145 , y:40, width: 139, height: 90))
         doneBtn.setImage(UIImage(named: "done"), for: UIControlState.normal)
         self.view.addSubview(doneBtn)
-
+        doneBtn.addTarget(self, action: #selector(showSlider), for: .touchUpInside)
     }
     
-//    @objc
-//    func soundRecord(){
-//        print("sound record code here")
-//    }
+    @objc
+    func createText(){
+        
+        cancelBtn.isHidden = false
+        
+        if textBool {
+            print("text bool is false")
+        } else {
+            memo = UITextField(frame: CGRect(x: 30, y: 250, width: 330, height: 40))
+            memo.delegate = self
+            memo.placeholder = "Enter text here"
+            memo.font = UIFont(name: "BodoniFLF-Bold", size: 30)
+        
+        //        memo.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.black)
+            memo.autocorrectionType = UITextAutocorrectionType.no
+            memo.keyboardType = UIKeyboardType.default
+            memo.returnKeyType = UIReturnKeyType.done
+            memo.clearButtonMode = UITextFieldViewMode.whileEditing;
+            self.view.addSubview(memo)
+            textBool = true
+        }
+    }
     
     @objc
     func fadeOut() {
-        if let lastModel = modelsInScene.popLast() {
+        
+        for model in modelsInScene {
             let fadeOut = SCNAction.fadeOut(duration: 1)
+            model.runAction(fadeOut)
+        }
+        
+//        if let lastModel = modelsInScene.popLast() {
+//            let fadeOut = SCNAction.fadeOut(duration: 1)
+//            lastModel.runAction(fadeOut)
 //            lastModel.removeFromParentNode()
-            lastModel.runAction(fadeOut)
 //            print(modelsInScene[0])
 //           modelsInScene[0].runAction(fadeOut)
 //            modelsInScene[1].runAction(fadeOut)
-        }
+        
+        cameraBtn.isHidden = false
+        soundBtn.isHidden = false
+        textBtn.isHidden = false
     }
 
     
@@ -652,23 +764,26 @@ class ARScreenController: UIViewController, ARSCNViewDelegate, CLLocationManager
     }
     
     @objc func cancel(){
+        
         recordBtnTwo.isHidden = true
-        if playBtn.isHidden == false {
-            if stopBtn.isHidden == false {
-                playBtn.isHidden = true
-                stopBtn.isHidden = true
-            } else {
-                playBtn.isHidden = true
-            }
+        stopBtn.isHidden = true
+        playBtn.isHidden = true
+        
+        if textBool {
+            memo.isHidden = true
+            textBool = false
         }
         
+        for model in modelsInScene {
+            model.removeFromParentNode()
+        }
        
         cancelBtn.isHidden = true
         doneBtn.isHidden = true
         
-        compass.isHidden = false
-        hereBtn.isHidden = false
-        mapBtn.isHidden = false
+        cameraBtn.isHidden = false
+        soundBtn.isHidden = false
+        textBtn.isHidden = false
 
     }
 }
@@ -692,6 +807,24 @@ extension ARScreenController: UITextFieldDelegate {
         return false
     }
 }
+
+extension UIColor {
+    convenience init(hexColor: String) {
+        let scannHex = Scanner(string: hexColor)
+        var rgbValue: UInt64 = 0
+        scannHex.scanLocation = 0
+        scannHex.scanHexInt64(&rgbValue)
+        let r = (rgbValue & 0xff0000) >> 16
+        let g = (rgbValue & 0xff00) >> 8
+        let b = rgbValue & 0xff
+        self.init(
+            red: CGFloat(r) / 0xff,
+            green: CGFloat(g) / 0xff,
+            blue: CGFloat(b) / 0xff, alpha: 1
+        )
+    }
+}
+
 
 //extension SCNAnimationPlayer {
 //    class func loadAnimation(fromSceneNamed sceneName: String) -> SCNAnimationPlayer {
